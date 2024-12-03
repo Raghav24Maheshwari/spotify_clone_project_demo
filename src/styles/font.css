@@ -1,0 +1,154 @@
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("/public/fonts/RobotoRegular.ttf");
+    font-family: "Roboto";
+    font-weight: 400;
+  }
+  @font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("/public/fonts/InterRegular.ttf");
+    font-family: "Inter";
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-UltraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Qanelas';
+    src: url('/public/fonts/Qanelas-UltraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }

@@ -1,0 +1,41 @@
+{
+    "common":{
+        "loginToExploreOurFeatures":"Login to explore our features.",
+        "login":"Login",
+"emailAddress": "Email address",
+"password":"Password",
+"forgotPassword":"Forgot Password",
+"don'tHaveAnAccount": "Don’t have an account?",
+        "signUp":"Signup",
+        "allGoodEnterYourAccountEmailAddressAndWeSendYouALinkToResetYourPassword": "All Good, enter your account’s email address and we’ll send you a link to reset your password.",
+        "submit":"Submit",
+        "contactPersonDetails":"Contact Personal Details",
+        "firstName":"First Name",
+        "lastName":"Last Name",
+        "yourEmailAddress":"Your Email Address",
+        "yourMobileNumber":"Your Mobile Number",
+        "confirmPassword":"Confirm Password",
+        "spotifyTermsAndConditions":"Spotify Terms and Conditions",
+        "thisWillActAsYourUsernameToLogin":"This Will Act As Your Username To Login",
+        "haveAnAccount":"Have an account",
+        "thisMustBeValidWhatsAppNumberToAccessFeaturesOnWhatsAppAppQuickly":"this Must Be Valid WhatsApp Number To Access Features On WhatsApp App Quickly",
+        "selectMusicCategory":"Select Music Category",
+        "other":"Other",
+        "yourAccountHasBeenCreatedSuccessfully":"Your account has been created successfully",
+        "accountIsUnderReviewByAdministrativeTeamOnceApprovedYouWillBeNotifiedOverRegisteredEmailAddress":"Account is under review by administrative team once approved you will be notified over registered email address",
+        "goToLogin":"Go To Login"
+    },
+    "errorMessages":{
+        "invalidEmailAddress":"Invalid Email Address",
+        "mobileNumberIsRequired":"Mobile number is required",
+        "passwordIsRequired":"Password is required",
+        "confirmPasswordIsRequired":"Confirm password is required",
+        "inValidPasswordFormat":"Password should be combination of alphabet, number or special character with Min 10 & max 25 characters.",
+        "passwordsDoNotMatch":"Passwords do not match",
+        "invalidMobileNumber":"Invalid mobile number",
+        "firstNameIsRequired":"First name is required",
+        "lastNameIsRequired":"Last name is required",
+        "invalidFirstName":"Invalid first name",
+        "invalidLastName":"Invalid last name"
+    }
+}
