@@ -16,44 +16,23 @@ import CommonImage from "../../components/CommonImage";
 import { CloseSVG } from "../../assets/Images";
 import { useSignUp } from "../../hooks/userHooks/useSignUp";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { changeLoader } from "../../redux/reducers/loader";
+import globalRequest from "../../prototype/globalRequest";
+import { API_ROUTES } from "../../common/Enum";
+import { useDispatch } from "react-redux";
 const SignUp = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   //states
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [showMusicList, setShowMusicList] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const { signUp, signUpeErrors } = useSignUp();
-  const musicCategories = [
-    "Rock",
-    "Pop",
-    "Jazz",
-    "Classical",
-    "Hip Hop",
-    "Electronic",
-    "Country",
-    "Blues",
-    "Reggae",
-    "R&B",
-    "Soul",
-    "Folk",
-    "Metal",
-    "Punk",
-    "Disco",
-    "House",
-    "Techno",
-    "Ambient",
-    "K-Pop",
-    "Latin",
-    "Gospel",
-    "Opera",
-    "Indie",
-    "Alternative",
-    "Trance",
-    "Instrumental",
-  ];
+  const [musicCategories,setMusicCategories] = useState([])
+  const { signUp, signUpeErrors } = useSignUp(musicCategories);
   const [formData, setFormData] = useState({
     musicCategory: "",
+    musicCategoryError:"",
     firstName: "",
     firstNameError: "",
     lastName: "",
@@ -93,7 +72,7 @@ const SignUp = () => {
   
     const filtered = musicCategories
       .filter((item) =>
-        item.toLowerCase().includes(keyword.toLowerCase())
+        item?.name.toLowerCase().includes(keyword.toLowerCase())
       )
       .slice(0, 7); // Slice to include only the first 7 items
   
@@ -104,9 +83,29 @@ const SignUp = () => {
     }
   };
 
+  const  getMusicCategoryList = async()=>{
+    dispatch(changeLoader(true));
+    try {
+      const res = await globalRequest(
+        API_ROUTES?.MUSIC_CATEGORY_LIST,
+        "get",
+        {},
+        {},
+        false
+      );
+      if (res?.message === "Success") {
+        setMusicCategories(res?.data)
+      }
+    } catch (err) {
+      console.error("error", err);
+    } finally {
+      dispatch(changeLoader(false));
+    }
+  }
 
 useEffect(()=>{
   filterItems()
+  getMusicCategoryList()
   // eslint-disable-next-line
 },[])
 
@@ -164,6 +163,7 @@ useEffect(() => {
                   mandatoryAsterisk="*"
                 />
                 <Input
+                error={formData?.musicCategoryError}
                   onFocus={() => {
                     handleInputFocus(true);
                   }}
@@ -179,6 +179,10 @@ useEffect(() => {
                           onClick={() => {
                             setSearchKeyword("");
                             setFilteredItems(musicCategories); // Reset to all items
+                            setFormData((formData) => ({
+                              ...formData,
+                              musicCategoryError:''
+                            }));
                           }}
                         />
                       ) : (
@@ -190,11 +194,16 @@ useEffect(() => {
                   size="small"
                   value={searchKeyword}
                   onChange={(value) => {
+                    
                     if(!value) setFilteredItems(musicCategories)
                       else {
                     filterItems(value);
                       }
                       setSearchKeyword(value)
+                      setFormData((formData) => ({
+                        ...formData,
+                        musicCategoryError:''
+                      }));
                   }}
                 />
                 {showMusicList && (
@@ -207,14 +216,15 @@ useEffect(() => {
                           event.preventDefault();
                           setFormData((formData) => ({
                             ...formData,
-                            musicCategory: item,
+                            musicCategory: item?.name,
+                            musicCategoryError:''
                           }));
-                          setSearchKeyword(item);
+                          setSearchKeyword(item?.name);
                           setShowMusicList(false);
                         }}
                       >
                         <Text className="common-pointer font-lato text-sm not-italic text-gray_900 tracking-[0.32px]">
-                          {item} 
+                          {item?.name} 
                         </Text>
                       </div>
                     ))}

@@ -23,7 +23,8 @@
         "other":"Other",
         "yourAccountHasBeenCreatedSuccessfully":"Your account has been created successfully",
         "accountIsUnderReviewByAdministrativeTeamOnceApprovedYouWillBeNotifiedOverRegisteredEmailAddress":"Account is under review by administrative team once approved you will be notified over registered email address",
-        "goToLogin":"Go To Login"
+        "goToLogin":"Go To Login",
+        "registeredSuccessfully":"Registered Successfully"
     },
     "errorMessages":{
         "invalidEmailAddress":"Invalid Email Address",
@@ -36,6 +37,7 @@
         "firstNameIsRequired":"First name is required",
         "lastNameIsRequired":"Last name is required",
         "invalidFirstName":"Invalid first name",
-        "invalidLastName":"Invalid last name"
+        "invalidLastName":"Invalid last name",
+        "invalidMusicCategory":"Invalid music category"
     }
 }

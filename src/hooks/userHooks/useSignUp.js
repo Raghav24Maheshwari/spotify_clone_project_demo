@@ -1,22 +1,29 @@
-
 import { useState } from "react";
-import { validateEmail,validatePassword,validateName } from "../../utils/helper/validation";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+} from "../../utils/helper/validation";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-export const useSignUp = () => {
+import { useDispatch } from "react-redux";
+import { API_ROUTES } from "../../common/Enum";
+import globalRequest from "../../prototype/globalRequest";
+import { changeLoader } from "../../redux/reducers/loader";
+import { setSnackbar } from "../../redux/reducers/snackbar";
+export const useSignUp = (musicCategories) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [signUpeErrors, setSignUpError] = useState(null);
   const handleErrors = (data) => {
     let error = false;
     let errObj = { ...data };
-    if (!data?.firstName) {
-      errObj.firstNameError = t("errorMessages.firstNameIsRequired");
-      error = true;
-    }
-    if (!data?.lastName) {
-      errObj.lastNameError = t("errorMessages.lastNameIsRequired");
+
+    if(!musicCategories.includes(data?.musicCategory)){
+      console.log(musicCategories,"fds")
+      errObj.musicCategoryError = t("errorMessages.invalidMusicCategory");
       error = true;
     }
     if (!validateName(data?.firstName)) {
@@ -27,16 +34,8 @@ export const useSignUp = () => {
       errObj.lastNameError = t("errorMessages.invalidLastName");
       error = true;
     }
-    if (!data?.email) {
-      errObj.emailError = t("errorMessages.emailIsRequired");
-      error = true;
-    }
     if (!isValidPhoneNumber(`+${data?.mobileNumber}`)) {
       errObj.mobileNumberError = t("errorMessages.invalidMobileNumber");
-      error = true;
-    }
-    if (!data?.mobileNumber) {
-      errObj.mobileNumberError = t("errorMessages.mobileNumberIsRequired");
       error = true;
     }
     if (!validateEmail(data?.email)) {
@@ -44,20 +43,12 @@ export const useSignUp = () => {
       error = true;
     }
     // Validate password
-    if (!data.password) {
-      errObj.passwordError = t("errorMessages.passwordIsRequired");
-      error = true;
-    } else if (!validatePassword(data?.password)) {
+   if (!validatePassword(data?.password)) {
       errObj.passwordError = t("errorMessages.inValidPasswordFormat");
       error = true;
     }
     // Validate confirm password
-    if (!data.confirmPassword) {
-      errObj.confirmPasswordError = t(
-        "errorMessages.confirmPasswordIsRequired"
-      );
-      error = true;
-    } else if (data.password !== data.confirmPassword) {
+    if (data.password !== data.confirmPassword) {
       errObj.confirmPasswordError = t("errorMessages.passwordsDoNotMatch");
       error = true;
     }
@@ -70,8 +61,47 @@ export const useSignUp = () => {
       return;
     } else {
       setSignUpError(null);
-      navigate("/sign-up-successfully-pending-message")
+      let data = {
+        music_category: formData?.musicCategory,
+        first_name: formData?.firstName,
+        last_name: formData?.lastName,
+        email: formData?.email,
+        mob_no: formData?.mobileNumber,
+        password: formData?.password,
+      };
+      dispatch(changeLoader(true));
+      try {
+        const res = await globalRequest(
+          API_ROUTES?.SIGN_UP,
+          "post",
+          data,
+          {},
+          false
+        );
+        if (res?.message === "Success") {
+          dispatch(
+            setSnackbar({
+              isOpen: true,
+              message: t("common.registeredSuccessfully"),
+              state: "success",
+            })
+          );
+          navigate("/sign-up-successfully-pending-message");
+        }
+      } catch (err) {
+        console.error("error", err);
+        dispatch(
+          setSnackbar({
+            isOpen: true,
+            message: err?.response?.data?.message,
+            state: "error",
+          })
+        );
+      } finally {
+        dispatch(changeLoader(false));
+      }
     }
   };
-  return {  signUp, signUpeErrors };
+
+  return { signUp, signUpeErrors };
 };
