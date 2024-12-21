@@ -8,6 +8,8 @@ const SpotifyTermsAndConditions = React.lazy(()=> import("../pages/SpotifyTermsA
 const SignUpSuccessfullyPendingMessage = React.lazy(()=> import("../pages/SignUpSucccessfullyPendingMessage"))
 const Dashboard = React.lazy(()=> import("../pages/Dashboard"))
 const DashboardHeader = React.lazy(()=> import("../layout/DashboardHeader"))
+const Sidebar = React.lazy(()=>import("../pages/Dashboard/Sidebar"))
+const Header = React.lazy(()=>import("../pages/Dashboard/Header"))
 const Routing = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -20,6 +22,8 @@ const Routing = () => {
           <Route path="/sign-up-successfully-pending-message" element={<SignUpSuccessfullyPendingMessage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-header" element={<DashboardHeader />} />
+          <Route path="/dashboard-sidebar" element={<Sidebar />} />
+          <Route path="/dashboard-header" element={<Header />} />
         </Routes>
       </Router>
     </Suspense>

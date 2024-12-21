@@ -14,6 +14,8 @@ const MusicCards = () => {
   const theme = useTheme();
 
   return (
+    <Box className="main-container pl-[240px] md:pl-0 pt-[60px]">
+      <Box className="py-6 px-8 md:px-4">
     <Card sx={{ display: 'flex' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
@@ -47,6 +49,8 @@ const MusicCards = () => {
         alt="Live from space album cover"
       />
     </Card>
+    </Box>
+    </Box>
   );
 }
 export default MusicCards
