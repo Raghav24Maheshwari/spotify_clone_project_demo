@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { Outlet } from "react-router-dom";
 import { Button, List, ListItem } from "@mui/material";
-import { Img, Text } from "../../../components";
+import { Img, Text } from "../../components";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTranslation } from "react-i18next";
 import DiamondIcon from '@mui/icons-material/Diamond';
@@ -15,10 +15,12 @@ import { Outlet, useNavigate } from "react-router";
 const Sidebar = () => {
   const { t } = useTranslation();
   const [isActive,setIsActive] = useState(false);
+  const [isActiveLink,setActiveLink] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigation = (link)=>{
     setIsActive(!isActive);
+    setActiveLink(link);
     navigate(link);
     }
   return (
@@ -38,7 +40,7 @@ const Sidebar = () => {
         </div>
         <List className="flex flex-col gap-2 pt-0 w-full max-h-[100vh_-_80px]">
           <ListItem
-          className={isActive === true ? "sidebar-a activeLink":"sidebar-a"}
+          className={isActiveLink === '/dashboard' ? "sidebar-a activeLink":"sidebar-a"}
           onClick={()=>handleNavigation('/dashboard')}
           >
             <DashboardIcon sx={{ color: '#fff' }}/>
@@ -46,19 +48,28 @@ const Sidebar = () => {
               {t("sidebar.dashboard")}
             </span>
           </ListItem>
-            <ListItem>
+            <ListItem
+            className={isActiveLink === '/silverPlan' ? "sidebar-a activeLink":"sidebar-a"}
+            onClick={()=>handleNavigation('/silverPlan')}
+            >
               <RadioButtonCheckedIcon sx={{ color: '#fff' }}/>
               <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.silverPlan")}
               </span>
             </ListItem>
-            <ListItem>
+            <ListItem
+             className={isActiveLink === '/goldenPlan' ? "sidebar-a activeLink":"sidebar-a"}
+             onClick={()=>handleNavigation('/goldenPlan')}
+            >
               <StarsIcon sx={{ color: '#fff' }}/>
               <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.goldenPlan")}
               </span>
             </ListItem>
-            <ListItem>
+            <ListItem
+            className={isActiveLink === '/diamondPlan' ? "sidebar-a activeLink":"sidebar-a"}
+            onClick={()=>handleNavigation('/diamondPlan')}
+            >
              <DiamondIcon sx={{ color: '#fff' }} />
               <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.diamondPlan")}
@@ -66,13 +77,17 @@ const Sidebar = () => {
             </ListItem>
             <ListItem
             onClick={()=>handleNavigation('/feedback')}
+            className={isActiveLink === '/feedback' ? "sidebar-a activeLink":"sidebar-a"}
             >
              <FeedbackIcon sx={{ color: '#fff' }} />
               <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.feedback")}
               </span>
             </ListItem>
-          <ListItem>
+          <ListItem
+          className={isActiveLink === '/help' ? "sidebar-a activeLink":"sidebar-a"}
+          onClick={()=>handleNavigation('/help')}
+          >
             <HelpIcon sx={{ color: '#fff' }}/>
             <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.help")}

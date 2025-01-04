@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Img, Text } from "../../../components";
+import { Img, Text } from "../../components";
 import PropTypes from "prop-types";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useTranslation } from "react-i18next";
