@@ -10,6 +10,7 @@ const Dashboard = React.lazy(()=> import("../pages/Dashboard"))
 const DashboardHeader = React.lazy(()=> import("../layout/DashboardHeader"))
 const Sidebar = React.lazy(()=>import("../pages/Dashboard/Sidebar"))
 const Header = React.lazy(()=>import("../pages/Dashboard/Header"))
+const Feedback = React.lazy(()=>import("../pages/Dashboard/SidebarPages/Feedback"))
 const Routing = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>

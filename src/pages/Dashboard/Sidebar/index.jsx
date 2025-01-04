@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Outlet } from "react-router-dom";
 import { Button, List, ListItem } from "@mui/material";
 import { Img, Text } from "../../../components";
@@ -10,8 +10,17 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import HelpIcon from '@mui/icons-material/Help';
 import { Image } from "@mui/icons-material";
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import { useNavigate } from "react-router";
 const Sidebar = () => {
   const { t } = useTranslation();
+  const [isActive,setIsActive] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavigation = (link)=>{
+    setIsActive(!isActive);
+    navigate(link);
+    }
   return (
     <>
       <div
@@ -28,7 +37,10 @@ const Sidebar = () => {
           />
         </div>
         <List className="flex flex-col gap-2 pt-0 w-full max-h-[100vh_-_80px]">
-          <ListItem>
+          <ListItem
+          className={isActive === true ? "sidebar-a activeLink":"sidebar-a"}
+          onClick={()=>handleNavigation('/dashboard')}
+          >
             <DashboardIcon sx={{ color: '#fff' }}/>
             <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.dashboard")}
@@ -50,6 +62,14 @@ const Sidebar = () => {
              <DiamondIcon sx={{ color: '#fff' }} />
               <span className="text-white-A700 text-[14px] font-normal">
               {t("sidebar.diamondPlan")}
+              </span>
+            </ListItem>
+            <ListItem
+            onClick={()=>handleNavigation('/feedback')}
+            >
+             <FeedbackIcon sx={{ color: '#fff' }} />
+              <span className="text-white-A700 text-[14px] font-normal">
+              {t("sidebar.feedback")}
               </span>
             </ListItem>
           <ListItem>

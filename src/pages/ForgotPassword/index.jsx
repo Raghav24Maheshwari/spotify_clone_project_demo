@@ -3,11 +3,37 @@ import { Button,Img, Input, InputLabels, Text } from "../../components";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CommonImage from "../../components/CommonImage";
+import { useForgotPassword } from "../../hooks/userHooks/useForgotPassword.js";
 const ForgotPassword = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [formData,setFormData] = useState({
+    email:'',
+    emailError:''
+  });
   //states
   const [disabledBtn, setDisabledBtn] = useState(false);
+  const { forgotPassword, forgotPasswordErrors } = useForgotPassword();
+
+  const handleSubmit = ()=>{
+    forgotPassword(formData);
+  }
+  useEffect(()=>{
+    if(formData?.email){
+      setDisabledBtn(false);
+    }
+    else{
+      setDisabledBtn(true)
+    }
+  },[formData?.email])
+
+  useEffect(()=>{
+       if(forgotPasswordErrors){
+        setFormData(forgotPasswordErrors);
+       }
+  },[forgotPasswordErrors])
+
+
 
   return (
     <>
@@ -48,8 +74,12 @@ const ForgotPassword = () => {
                 <Input
                   className="fill"
                   size="small"
-                  value='value'
-                  error='error'
+                  value={formData.email}
+                  error={formData.emailError}
+                  onChange={(email) => {
+                    if (email?.length > 100) return;
+                    setFormData({ ...formData, email, emailError: "" });
+                  }}
                 />
               </div>
               <Button
@@ -59,6 +89,7 @@ const ForgotPassword = () => {
                 size="xl"
                 variant="fill"
                 disabled={disabledBtn}
+                onClick={handleSubmit}
               >
                 {t("common.submit")}
               </Button>

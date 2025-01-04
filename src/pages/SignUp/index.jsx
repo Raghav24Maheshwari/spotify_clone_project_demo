@@ -28,11 +28,11 @@ const SignUp = () => {
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [showMusicList, setShowMusicList] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [musicCategories,setMusicCategories] = useState([])
+  const [musicCategories, setMusicCategories] = useState([]);
   const { signUp, signUpeErrors } = useSignUp(musicCategories);
   const [formData, setFormData] = useState({
     musicCategory: "",
-    musicCategoryError:"",
+    musicCategoryError: "",
     firstName: "",
     firstNameError: "",
     lastName: "",
@@ -69,13 +69,13 @@ const SignUp = () => {
       setFilteredItems(musicCategories);
       return;
     }
-  
+
     const filtered = musicCategories
       .filter((item) =>
         item?.name.toLowerCase().includes(keyword.toLowerCase())
       )
       .slice(0, 7); // Slice to include only the first 7 items
-  
+
     if (filtered.length === 0) {
       setFilteredItems([t("common.other")]);
     } else {
@@ -83,7 +83,7 @@ const SignUp = () => {
     }
   };
 
-  const  getMusicCategoryList = async()=>{
+  const getMusicCategoryList = async () => {
     dispatch(changeLoader(true));
     try {
       const res = await globalRequest(
@@ -94,41 +94,42 @@ const SignUp = () => {
         false
       );
       if (res?.message === "Success") {
-        setMusicCategories(res?.data)
+        setMusicCategories(res?.data);
       }
     } catch (err) {
       console.error("error", err);
     } finally {
       dispatch(changeLoader(false));
     }
-  }
+  };
 
-useEffect(()=>{
-  filterItems()
-  getMusicCategoryList()
-  // eslint-disable-next-line
-},[])
+  useEffect(() => {
+    filterItems();
+    getMusicCategoryList();
+    // eslint-disable-next-line
+  }, []);
 
-useEffect(() => {
-  console.log(formData)
-  if (
-    formData.musicCategory &&
-    formData.firstName &&
-    formData.lastName &&
-    formData.email &&
-    formData.mobileNumber &&
-    formData.password &&
-    formData.confirmPassword &&
-    formData.conditionsChecked
-  ) {
-    setDisabledBtn(false);
-  }
-  else{
-    setDisabledBtn(true)
-  }
-}, [formData]);
-
-
+  useEffect(() => {
+    if (musicCategories?.length) {
+      setFilteredItems(musicCategories);
+    }
+  }, [musicCategories]);
+  useEffect(() => {
+    if (
+      formData.musicCategory &&
+      formData.firstName &&
+      formData.lastName &&
+      formData.email &&
+      formData.mobileNumber &&
+      formData.password &&
+      formData.confirmPassword &&
+      formData.conditionsChecked
+    ) {
+      setDisabledBtn(false);
+    } else {
+      setDisabledBtn(true);
+    }
+  }, [formData]);
 
   return (
     <>
@@ -163,7 +164,7 @@ useEffect(() => {
                   mandatoryAsterisk="*"
                 />
                 <Input
-                error={formData?.musicCategoryError}
+                  error={formData?.musicCategoryError}
                   onFocus={() => {
                     handleInputFocus(true);
                   }}
@@ -181,7 +182,7 @@ useEffect(() => {
                             setFilteredItems(musicCategories); // Reset to all items
                             setFormData((formData) => ({
                               ...formData,
-                              musicCategoryError:''
+                              musicCategoryError: "",
                             }));
                           }}
                         />
@@ -194,43 +195,55 @@ useEffect(() => {
                   size="small"
                   value={searchKeyword}
                   onChange={(value) => {
-                    
-                    if(!value) setFilteredItems(musicCategories)
-                      else {
-                    filterItems(value);
-                      }
-                      setSearchKeyword(value)
-                      setFormData((formData) => ({
-                        ...formData,
-                        musicCategoryError:''
-                      }));
+                    if (!value) setFilteredItems(musicCategories);
+                    else {
+                      filterItems(value);
+                    }
+                    setSearchKeyword(value);
+                    setFormData((formData) => ({
+                      ...formData,
+                      musicCategoryError: "",
+                    }));
                   }}
                 />
                 {showMusicList && (
                   <div className="w-full absolute left-0 border border-solid border-blue_gray_100 rounded-md bg-white_A700 mt-[-23px] bg-white-A700 z-[9] max-h-[240px] overflow-auto">
-                    {filteredItems && filteredItems?.map((item, index) => (
-                      <div
-                        key={index} // Always include a unique key when rendering lists
-                        className="overflow-hidden flex flex-col items-start justify-start py-2 px-4 border-b border-solid border-blue_gray_100 last:border-none hover:bg-light_green_50 cursor-pointer last:hover:rounded-b-md first:hover:rounded-t-md"
-                        onMouseDown={(event) => {
-                          event.preventDefault();
-                          setFormData((formData) => ({
-                            ...formData,
-                            musicCategory: item?.name,
-                            musicCategoryError:''
-                          }));
-                          setSearchKeyword(item?.name);
-                          setShowMusicList(false);
-                        }}
-                      >
-                        <Text className="common-pointer font-lato text-sm not-italic text-gray_900 tracking-[0.32px]">
-                          {item?.name} 
-                        </Text>
-                      </div>
-                    ))}
+                    {filteredItems &&
+                      filteredItems?.map((item, index) => (
+                        <div
+                          key={index} // Always include a unique key when rendering lists
+                          className="overflow-hidden flex flex-col items-start justify-start py-2 px-4 border-b border-solid border-blue_gray_100 last:border-none hover:bg-light_green_50 cursor-pointer last:hover:rounded-b-md first:hover:rounded-t-md"
+                          onMouseDown={(event) => {
+                            event.preventDefault();
+                            setFormData((formData) => ({
+                              ...formData,
+                              musicCategory: item?.id,
+                              musicCategoryError: "",
+                            }));
+                            setSearchKeyword(
+                              item?.name
+                                ?.split(" ") // Split the string into an array of words
+                                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+                                .join(" ") // Join them back into a single string
+                            );
+                            
+                            setShowMusicList(false);
+                          }}
+                        >
+                          <Text className="common-pointer font-lato text-sm not-italic text-gray_900 tracking-[0.32px]">
+                            {item?.name
+                              ?.split(" ") 
+                              .map(
+                                (word) =>
+                                  word.charAt(0).toUpperCase() +
+                                  word.slice(1).toLowerCase()
+                              ) 
+                              .join(" ")}{" "}
+                          </Text>
+                        </div>
+                      ))}
 
                     {/* dfss */}
-
                   </div>
                 )}
               </div>
@@ -413,22 +426,25 @@ useEffect(() => {
                         <span
                           className="underline text-light_blue-900 font-semibold cursor-pointer"
                           onClick={() => {
-                            window.open("/spotify-term-and-conditions", "_blank");
+                            window.open(
+                              "/spotify-term-and-conditions",
+                              "_blank"
+                            );
                           }}
                         >
-                           {t("common.spotifyTermsAndConditions")}.
+                          {t("common.spotifyTermsAndConditions")}.
                         </span>
                       </Text>
                     </>
                   }
-                    checked={formData?.conditionsChecked}
-                    onChange={(value) => {
-                      let conditionsChecked = value;
-                      setFormData({
-                        ...formData,
-                        conditionsChecked,
-                      });
-                    }}
+                  checked={formData?.conditionsChecked}
+                  onChange={(value) => {
+                    let conditionsChecked = value;
+                    setFormData({
+                      ...formData,
+                      conditionsChecked,
+                    });
+                  }}
                 />
               </div>
               <Button

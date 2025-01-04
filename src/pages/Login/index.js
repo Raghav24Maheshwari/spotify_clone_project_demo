@@ -9,25 +9,31 @@ import {
 } from "../../components";
 
 import { useTranslation } from "react-i18next";
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CommonImage from "../../components/CommonImage";
-import { validatePassword,validateEmail } from "../../utils/helper/validation";
+import { useSignIn } from "../../hooks/userHooks/useSignIn";
 // import ForgotPassword from "../ForgotPassword";
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [disabledBtn, setDisabledBtn] = useState(false);
+  const { signIn, signInErrors } = useSignIn();
   const [formData,setFormData] = useState({
     email:'',
     emailError:'',
     password:'',
     passwordError:''
   })
-const caled = ()=>{
-  console.log(formData,"formdata")
+const handleLogin = ()=>{
+  signIn(formData);
 }
+
+useEffect(()=>{
+     if(signInErrors){
+      setFormData(signInErrors);
+     }
+},[signInErrors])
 useEffect(()=>{
   if(formData?.email && formData?.password){
     setDisabledBtn(false);
@@ -39,20 +45,6 @@ useEffect(()=>{
   return (
     <>
       <div className="flex md:flex-col justify-center items-center w-full">
-        {/* {!isActiveAccount && (
-          <Alert
-            icon={false}
-            severity="success"
-            className="z-[999] !bg-gray-100 fixed left-0 right-0 top-[24px] mx-auto w-full max-w-[382px]"
-          >
-            <p>{t("common.pleaseCheckYourEmailAndActivateYourAccount")}</p>
-            <p
-              className="underline text-light_blue-900 font-semibold cursor-pointer"
-            >
-              {t("common.ResendEmail")}
-            </p>
-          </Alert>
-        )} */}
         <div className="w-[50%] md:w-full md:min-h-[440px]">
           <div className="absolute top-3 left-4 md:relative md:left-0 md:mb-10 md:pl-4">
             <Img
@@ -80,6 +72,7 @@ useEffect(()=>{
                   className="fill"
                   size="small"
                   value={formData?.email}
+                  error={formData?.emailError}
                   onChange={(email)=>{
                     setFormData({...formData,email,emailError:''})
                   }}
@@ -109,6 +102,7 @@ useEffect(()=>{
                 size="xl"
                 variant="fill"
                 disabled={disabledBtn}
+                onClick={handleLogin}
               >
                 {t("common.login")}
               </Button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   validateEmail,
   validatePassword,
@@ -17,15 +17,24 @@ export const useSignUp = (musicCategories) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [signUpeErrors, setSignUpError] = useState(null);
+  const [musicCategoryName,setMusicCategoryName] = useState([]);
+  useEffect(() => {
+    const categoryNames = musicCategories?.map((item) => item.id);
+    setMusicCategoryName(categoryNames);
+  }, [musicCategories]);
   const handleErrors = (data) => {
     let error = false;
     let errObj = { ...data };
-
-    if(!musicCategories.includes(data?.musicCategory)){
-      console.log(musicCategories,"fds")
-      errObj.musicCategoryError = t("errorMessages.invalidMusicCategory");
-      error = true;
-    }
+   console.log(data?.musicCategory,"music")
+   if(musicCategoryName.includes(data?.musicCategory)){
+    console.log("musicCategoryName music included")
+   }
+  //  console.log(musicCategoryName, "musicCategoryName");
+  if (data?.musicCategory && !musicCategoryName.includes(data.musicCategory)) {
+    errObj.musicCategoryError = t("errorMessages.invalidMusicCategory");
+    error = true;
+  }
+  
     if (!validateName(data?.firstName)) {
       errObj.firstNameError = t("errorMessages.invalidFirstName");
       error = true;
