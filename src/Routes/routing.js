@@ -11,20 +11,25 @@ const DashboardHeader = React.lazy(()=> import("../layout/DashboardHeader"))
 const Sidebar = React.lazy(()=>import("../pages/Dashboard/Sidebar"))
 const Header = React.lazy(()=>import("../pages/Dashboard/Header"))
 const Feedback = React.lazy(()=>import("../pages/Dashboard/SidebarPages/Feedback"))
+const MusicCards = React.lazy(()=>import("../pages/Dashboard/MusicCards"))
 const Routing = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/spotify-term-and-conditions" element={<SpotifyTermsAndConditions />} />
           <Route path="/sign-up-successfully-pending-message" element={<SignUpSuccessfullyPendingMessage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard-header" element={<DashboardHeader />} />
-          <Route path="/dashboard-sidebar" element={<Sidebar />} />
-          <Route path="/dashboard-header" element={<Header />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard-header" element={<DashboardHeader />} /> */}
+          <Route path="/" element={<Header />}>
+          <Route path="/" element={<Sidebar />}>
+          <Route path="/dashboard" element={<MusicCards />} />
+          <Route path="/feedback" element={<Feedback />} />
+          </Route>
+          </Route>
         </Routes>
       </Router>
     </Suspense>

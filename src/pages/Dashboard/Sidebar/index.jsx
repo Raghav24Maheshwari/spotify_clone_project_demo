@@ -11,7 +11,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import HelpIcon from '@mui/icons-material/Help';
 import { Image } from "@mui/icons-material";
 import FeedbackIcon from '@mui/icons-material/Feedback';
-import { useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 const Sidebar = () => {
   const { t } = useTranslation();
   const [isActive,setIsActive] = useState(false);
@@ -97,7 +97,7 @@ const Sidebar = () => {
           </Button>
         </div>
       </div>
-      {/* <Outlet /> */}
+      <Outlet />
     </>
   );
 };
