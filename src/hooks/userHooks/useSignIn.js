@@ -7,6 +7,8 @@ import { API_ROUTES } from "../../common/Enum";
 import globalRequest from "../../prototype/globalRequest";
 import { changeLoader } from "../../redux/reducers/loader";
 import { setSnackbar } from "../../redux/reducers/snackbar";
+import addDeleteGetLocalStorage from "../../prototype/addDeleteGetLocalStorage";
+import { STORAGE } from "../../common/LocalVaribale";
 export const useSignIn = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ export const useSignIn = () => {
           false
         );
         if (res?.message === "Success") {
+          addDeleteGetLocalStorage(STORAGE.USER_TOKEN,res.data.token,"add","single");
           dispatch(
             setSnackbar({
               isOpen: true,

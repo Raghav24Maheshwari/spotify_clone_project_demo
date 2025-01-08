@@ -6,6 +6,8 @@ import { API_KEY, BASE_URL } from "../BaseUrl";
 // import { decodedToken } from "common/TokenDecode";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../redux/reducers/snackbar";
+import addDeleteGetLocalStorage from "./addDeleteGetLocalStorage";
+import { STORAGE } from "../common/LocalVaribale";
 
 const dispatch = useDispatch
 /**
@@ -23,6 +25,10 @@ const globalRequest = (
     console.log("INSIDE",BASE_URL, '+' ,url)
     let headers = {
       "x-api-key":API_KEY,
+    }
+    const userToken = addDeleteGetLocalStorage(STORAGE.USER_TOKEN,{},"get");
+    if(token){
+      headers.authorization = userToken;
     }
 
   let sendData = {

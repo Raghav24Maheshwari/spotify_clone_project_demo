@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Img, Text } from "../../../components";
+import { Img, Text } from "../../components";
 import PropTypes from "prop-types";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useTranslation } from "react-i18next";
 import { Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Outlet } from "react-router";
 export default function Header() {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -68,6 +69,7 @@ export default function Header() {
           </div>
         </div>
       </header>
+      <Outlet/>
     </>
   );
 }
