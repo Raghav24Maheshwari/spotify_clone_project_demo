@@ -16,6 +16,7 @@ const SilverPlan = React.lazy(()=>import("../pages/Sidebar/SidebarPages/SilverPl
 const GoldenPlan = React.lazy(()=>import("../pages/Sidebar/SidebarPages/GoldenPlan"))
 const DiamondPlan = React.lazy(()=>import("../pages/Sidebar/SidebarPages/DiamondPlan"))
 const Help = React.lazy(()=>import("../pages/Sidebar/SidebarPages/Help"))
+const PrivateRoutes = React.lazy(()=>import("../routeHandler/PrivateRoutes"))
 const Routing = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -28,6 +29,10 @@ const Routing = () => {
           <Route path="/sign-up-successfully-pending-message" element={<SignUpSuccessfullyPendingMessage />} />
           {/* <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard-header" element={<DashboardHeader />} /> */}
+
+
+          {/* all private routes  */}
+          <Route path="/" element={<PrivateRoutes/>}>
           <Route path="/" element={<Header />}>
           <Route path="/" element={<Sidebar />}>
           <Route path="/dashboard" element={<MusicCards />} />
@@ -38,6 +43,8 @@ const Routing = () => {
           <Route path="/help" element={<Help />} />
           </Route>
           </Route>
+          </Route>
+          
         </Routes>
       </Router>
     </Suspense>
