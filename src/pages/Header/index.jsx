@@ -6,9 +6,11 @@ import { useTranslation } from "react-i18next";
 import { Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Outlet } from "react-router";
+import { useNavigate } from "react-router";
 export default function Header() {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +18,9 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleNavigation = (link)=>{
+    navigate(link);
+    }
   return (
     <>
       <header className="fixed left-0 right-0 top-0 py-3 pl-[272px] pr-8 md:pl-12 md:pr-4 border-gray-200 border-b border-solid bg-white-A700 z-[9]">
@@ -60,8 +65,9 @@ export default function Header() {
               }}
               className="mt-3"
             >
-              <MenuItem>{t("header.myProfile")}</MenuItem>
-              <MenuItem>{t("header.likedMusic")}</MenuItem>
+              <MenuItem onClick={()=>handleNavigation("/my-profile")}>{t("header.myProfile")}</MenuItem>
+              <MenuItem onClick={()=>handleNavigation("/update-profile")}>{t("header.editProfile")}</MenuItem>
+              <MenuItem onClick={()=>handleNavigation("/favorite-music")}>{t("header.likedMusic")}</MenuItem>
             </Menu>
             <div className="h-[24px] w-[24px] cursor-pointer">
               <ChatIcon />

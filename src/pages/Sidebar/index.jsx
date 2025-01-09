@@ -12,10 +12,12 @@ import HelpIcon from '@mui/icons-material/Help';
 import { Image } from "@mui/icons-material";
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import { Outlet, useNavigate } from "react-router";
+import LogoutDialog from "../../modals/LogoutModal";
 const Sidebar = () => {
   const { t } = useTranslation();
   const [isActive,setIsActive] = useState(false);
   const [isActiveLink,setActiveLink] = useState(false);
+  const [openDialogBox,setOpenDialogBox] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigation = (link)=>{
@@ -99,7 +101,9 @@ const Sidebar = () => {
             variants={"outline"}
             className="!p-0 w-full rounded-[12px] relative bg-transparent light_blue_800_01_deep_purple_A100_border mt-2.5"
           >
-            <span className="flex items-center justify-center bg-[#111827] rounded-[12px] relative  w-full z-[1] h-[38px] w-[206px] px-6">
+            <span className="flex items-center justify-center bg-[#111827] rounded-[12px] relative  w-full z-[1] h-[38px] w-[206px] px-6"
+             onClick={() => setOpenDialogBox(true)}
+            >
               <Img
                 src='images/logoutFill.svg'
                 alt="navicons"
@@ -113,6 +117,9 @@ const Sidebar = () => {
         </div>
       </div>
       <Outlet />
+      {<LogoutDialog
+      openDialogBox={openDialogBox} setOpenDialogBox={setOpenDialogBox}
+      />}
     </>
   );
 };

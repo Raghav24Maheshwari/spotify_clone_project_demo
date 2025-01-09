@@ -54,7 +54,7 @@ const ForgotPassword = () => {
                   alt="arrow"
                   className="w-[24px] h-[24px] ml-[-8px] cursor-pointer"
                   onClick={() => {
-                    navigate("/");
+                    navigate("/login");
                   }}
                 />
                 <Text className="text-[24px] font-semibold mb-[8px]">

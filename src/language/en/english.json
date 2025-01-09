@@ -14,6 +14,7 @@
     "lastName": "Last Name",
     "yourEmailAddress": "Your Email Address",
     "yourMobileNumber": "Your Mobile Number",
+    "mobileNumber":"Mobile Number",
     "confirmPassword": "Confirm Password",
     "spotifyTermsAndConditions": "Spotify Terms and Conditions",
     "thisWillActAsYourUsernameToLogin": "This Will Act As Your Username To Login",
@@ -25,7 +26,8 @@
     "accountIsUnderReviewByAdministrativeTeamOnceApprovedYouWillBeNotifiedOverRegisteredEmailAddress": "Account is under review by administrative team once approved you will be notified over registered email address",
     "goToLogin": "Go To Login",
     "registeredSuccessfully": "Registered Successfully",
-    "loginSuccessful":"Login Successful"
+    "loginSuccessful":"Login Successful",
+    "musicCategory":"Music Category"
   },
   "errorMessages": {
     "invalidEmailAddress": "Invalid Email Address",
@@ -40,7 +42,8 @@
     "invalidFirstName": "Invalid first name",
     "invalidLastName": "Invalid last name",
     "invalidMusicCategory": "Invalid music category",
-    "inValidPassword":"Invalid Password"
+    "inValidPassword":"Invalid Password",
+    "MaxCharactersLimitShouldBeLessThan":"Max characters limit should be less than 1000"
   },
   "sidebar": {
     "dashboard": "Dashboard",
@@ -54,6 +57,18 @@
   "header": {
     "spotify": "Spotify",
     "myProfile": "My Profile",
+    "editProfile":"Edit Profile",
     "likedMusic": "Liked Music"
+  },
+  "dialogBox":{
+    "areYouSureYouWantToLogout":"Are you sure you want to logout ?",
+    "loginDialogMessage":"You will be redirected to the login page after logging out, you need to login again to see the adventure.",
+    "ok":"OK",
+    "cancel":"CANCEL"
+  },
+  "profile":{
+    "profilePicture":"Profile Picture",
+    "uploadYourImage":"Upload Your Image Here",
+    "writeYourThoughts":"Write Your Thoughts"
   }
 }

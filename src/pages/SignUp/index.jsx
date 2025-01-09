@@ -7,9 +7,9 @@ import {
   InputPassword,
   Text,
   Img,
+  PhoneInputComponent
 } from "../../components";
 import { CheckBox } from "../../components/CheckBox";
-import { PhoneInputComponent } from "../../components/PhoneInput";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CommonImage from "../../components/CommonImage";
@@ -150,7 +150,7 @@ const SignUp = () => {
                   alt=""
                   className="mr-2 cursor-pointer"
                   onClick={() => {
-                    navigate("/");
+                    navigate("/login");
                   }}
                 />
                 <Text className="text-[24px] font-semibold ">
@@ -324,11 +324,7 @@ const SignUp = () => {
                 />
               </div>
               <div className="w-full relative">
-                <InputLabels
-                  className="flex flex-col gap-1 items-start justify-start w-full"
-                  labelText={t("common.yourMobileNumber")}
-                  mandatoryAsterisk="*"
-                />
+
                 <PhoneInputComponent
                   className="fill"
                   size="small"
@@ -464,7 +460,7 @@ const SignUp = () => {
                   <span
                     className="!text-light_blue-900 text-center underline font-semibold text-[14px] cursor-pointer"
                     onClick={() => {
-                      navigate("/");
+                      navigate("/login");
                     }}
                   >
                     {t("common.login")}

@@ -17,18 +17,23 @@ const GoldenPlan = React.lazy(()=>import("../pages/Sidebar/SidebarPages/GoldenPl
 const DiamondPlan = React.lazy(()=>import("../pages/Sidebar/SidebarPages/DiamondPlan"))
 const Help = React.lazy(()=>import("../pages/Sidebar/SidebarPages/Help"))
 const PrivateRoutes = React.lazy(()=>import("../routeHandler/PrivateRoutes"))
+const CommonRoutes = React.lazy(()=>import("../routeHandler/CommonRoutes"))
+const UpdateProfile = React.lazy(()=>import("../pages/Profile/UpdateProfile"))
+const MyProfile = React.lazy(()=>import("../pages/Profile/MyProfile"))
+const FavoriteMusic = React.lazy(()=>import("../pages/FavoriteMusic"))
 const Routing = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Router>
         <Routes>
+          {/* all common routes  */}
+          <Route path="/" element={<CommonRoutes/>}>
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/spotify-term-and-conditions" element={<SpotifyTermsAndConditions />} />
           <Route path="/sign-up-successfully-pending-message" element={<SignUpSuccessfullyPendingMessage />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard-header" element={<DashboardHeader />} /> */}
+          </Route>
 
 
           {/* all private routes  */}
@@ -43,6 +48,9 @@ const Routing = () => {
           <Route path="/help" element={<Help />} />
           </Route>
           </Route>
+          <Route path="/update-profile" element={<UpdateProfile />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/favorite-music" element={<FavoriteMusic />} />
           </Route>
           
         </Routes>
