@@ -64,6 +64,7 @@ export const useSignUp = (musicCategories) => {
     return { error, errObj };
   };
   const signUp = async (formData) => {
+    console.log(formData.profileImage,"profile")
     let { error, errObj } = handleErrors(formData);
     if (error) {
       setSignUpError(errObj);
@@ -77,6 +78,7 @@ export const useSignUp = (musicCategories) => {
         email: formData?.email,
         mob_no: formData?.mobileNumber,
         password: formData?.password,
+        profileImageUrl:formData.profileImage
       };
       dispatch(changeLoader(true));
       try {

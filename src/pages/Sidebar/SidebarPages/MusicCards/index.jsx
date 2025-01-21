@@ -11,41 +11,22 @@ import PauseIcon from "@mui/icons-material/Pause";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Fab } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch } from "react-redux";
+import { changeLoader } from "../../../../redux/reducers/loader";
+import globalRequest from "../../../../prototype/globalRequest";
+import { API_ROUTES } from "../../../../common/Enum";
+import { setSnackbar } from "../../../../redux/reducers/snackbar";
 
 const MusicCards = () => {
   const audioRef = useRef(null);
   const [currentAudioUrl, setCurrentAudioUrl] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [liked, setLiked] = useState(false);
+  const dispatch = useDispatch();
 
-  const [musicData, setMusicData] = useState([
-    {
-      title: "Saude Bazi",
-      artist: "Mac Miller",
-      audioUrl: "audio/Saudebaazi_128-(PagalWorld).mp3",
-      imageUrl: "images/live-from-space.jpg",
-      progress: 0,
-      volume: 50,
-    },
-    {
-      title: "Song Title 2",
-      artist: "Artist Name 2",
-      audioUrl: "audio/Gand Me Danda - Dj Suman.mp3",
-      imageUrl: "images/live-from-space.jpg",
-      progress: 0,
-      volume: 50,
-    },
-    {
-      title: "Song Title 3",
-      artist: "Artist Name 3",
-      audioUrl: "audio/Gand Me Danda - Dj Suman.mp3",
-      imageUrl: "images/live-from-space.jpg",
-      progress: 0,
-      volume: 50,
-    },
-    // Add more music objects as needed
-  ]);
 
+  const [musicData, setMusicData] = useState([]);
+//audio/Saudebaazi_128-(PagalWorld).mp3
   const handlePlayPause = (audioUrl) => {
     if (currentAudioUrl !== audioUrl) {
       // Set the new audio source
@@ -69,6 +50,43 @@ const MusicCards = () => {
     }
   };
 
+
+  const getMusic = async () => {
+      dispatch(changeLoader(true));
+      try {
+        const res = await globalRequest(
+          API_ROUTES?.GET_MUSIC,
+          "get",
+          {},
+          {},
+          false
+        );
+        if (res?.message === "Success") {
+          const updatedMusicData = res?.data.map((music) => ({
+            ...music,
+            audioUrl: `http://localhost:8080${music.audioUrl}`, // Prepend the server URL
+          }));
+          setMusicData(updatedMusicData);
+            console.log(res,"1234567890")
+        }
+      } catch (err) {
+        console.error("error", err);
+        dispatch(
+          setSnackbar({
+            isOpen: true,
+            message: err?.response?.data?.message,
+            state: "error",
+          })
+        );
+      } finally {
+        dispatch(changeLoader(false));
+      }
+    
+  };
+  useEffect(()=>{
+    getMusic();
+  },[])
+console.log(musicData[0]?.audioUrl,"4444")
   const handleVolumeChange = (index, newValue) => {
     const newVolume = Array.isArray(newValue) ? newValue[0] : newValue;
     const updatedMusicData = [...musicData];
@@ -139,14 +157,14 @@ const MusicCards = () => {
               <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 <CardContent sx={{ flex: "1 0 auto" }}>
                   <Typography component="div" variant="h5">
-                    {music.title}
+                    {music.songName}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     component="div"
                     sx={{ color: "text.secondary" }}
                   >
-                    {music.artist}
+                    {music.artistName}
                   </Typography>
                 </CardContent>
                 <Box sx={{ px: 2 }}>
@@ -201,7 +219,7 @@ const MusicCards = () => {
               <CardMedia
                 component="img"
                 sx={{ width: 151 }}
-                image={music.imageUrl}
+                image={music.imageUrl ? music.imageUrl:"images/no-image-available-icon.jpg" }
                 alt={`${music.title} album cover`}
               />
             </Card>

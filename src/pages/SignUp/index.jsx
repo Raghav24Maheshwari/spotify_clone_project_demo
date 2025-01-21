@@ -29,6 +29,7 @@ const SignUp = () => {
   const [showMusicList, setShowMusicList] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [musicCategories, setMusicCategories] = useState([]);
+  const [imageBase64, setImageBase64] = useState("");
   const { signUp, signUpeErrors } = useSignUp(musicCategories);
   const [formData, setFormData] = useState({
     musicCategory: "",
@@ -44,6 +45,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     confirmPasswordError: "",
+    profileImage:"",
     conditionsChecked: "",
   });
 
@@ -103,6 +105,22 @@ const SignUp = () => {
     }
   };
 
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageBase64(reader.result); // This will be the base64 string
+        setFormData((prev) => ({
+          ...prev,
+          profileImage: reader.result,
+        }));        
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     filterItems();
     getMusicCategoryList();
@@ -123,7 +141,8 @@ const SignUp = () => {
       formData.mobileNumber &&
       formData.password &&
       formData.confirmPassword &&
-      formData.conditionsChecked
+      formData.profileImage &&
+      formData.conditionsChecked 
     ) {
       setDisabledBtn(false);
     } else {
@@ -410,6 +429,20 @@ const SignUp = () => {
                   isDoubleLineErr={true}
                 />
               </div>
+              <label htmlFor="profileImage" className="cursor-pointer">
+                  <Img
+                    src={"images/profile-default.svg"}
+                    alt="Profile"
+                    className="w-[120px] h-[120px] object-cover rounded-[50%]"
+                  />
+                  <input
+                    id="profileImage"
+                    type="file"
+                    className="flex flex-col gap-1 items-start justify-start w-full mb-8"
+                    accept="image/jpeg, image/png"
+                    onChange={handleImageChange}
+                  />
+                </label>
               <div className="mb-[9px]">
                 <CheckBox
                   id="AgreeToDataProcessingAgreement"
