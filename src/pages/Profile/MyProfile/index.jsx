@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Box, Typography } from "@mui/material";
 import { Img } from "../../../components";
+import addDeleteGetLocalStorage from "../../../prototype/addDeleteGetLocalStorage";
+import { decodedToken } from "../../../common/TokenDecode";
+import { capitalizeFirstLetter, getMusicCategoryById } from "../../../common/HelperFunction";
+import { STORAGE } from "../../../common/LocalVaribale";
 function MyProfile() {
   const { t } = useTranslation();
+  const userToken = addDeleteGetLocalStorage(STORAGE.USER_TOKEN, {}, "get");
+  let decoded = decodedToken(userToken)
+
+
+  
 
   return (
     <>
@@ -30,18 +39,18 @@ function MyProfile() {
                 </Typography>
                 <Box className="flex justify-between items-center bg-backgroundLight rounded-sm p-[18px] mb-6">
                   <p className="text-sm text-gray">{t("common.firstName")}</p>
-                  <p className="text-sm text-black font-semibold">Jane</p>
+                  <p className="text-sm text-black font-semibold">{capitalizeFirstLetter(decoded.firstName)}</p>
                 </Box>{" "}
                 <Box className="flex justify-between items-center bg-backgroundLight rounded-sm p-[18px] mb-6">
                   <p className="text-sm text-gray">{t("common.lastName")}</p>
-                  <p className="text-sm text-black font-semibold">Cooper</p>
+                  <p className="text-sm text-black font-semibold">{capitalizeFirstLetter(decoded.lastName)}</p>
                 </Box>
                 <Box className="flex justify-between items-center bg-backgroundLight rounded-sm p-[18px] mb-6">
                   <p className="text-sm text-gray">
                     {t("common.emailAddress")}
                   </p>
                   <p className="text-sm text-black font-semibold">
-                    janecooper@gmail.com
+                    {decoded.email}
                   </p>
                 </Box>
                 <Box className="flex justify-between items-center bg-backgroundLight rounded-sm p-[18px] mb-6">
@@ -49,14 +58,14 @@ function MyProfile() {
                     {t("common.mobileNumber")}
                   </p>
                   <p className="text-sm text-black font-semibold">
-                    +966 9123456789
+                   {decoded.phone}
                   </p>
                 </Box>
                 <Box className="flex justify-between items-center bg-backgroundLight rounded-sm p-[18px] mb-6">
                   <p className="text-sm text-gray">
                     {t("common.musicCategory")}
                   </p>
-                  <p className="text-sm text-black font-semibold">Cakes</p>
+                  <p className="text-sm text-black font-semibold">{decoded.musicCategory}</p>
                 </Box>
               </Box>
             </div>

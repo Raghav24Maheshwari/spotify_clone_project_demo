@@ -132,10 +132,13 @@ console.log(musicData[0]?.audioUrl,"4444")
     }
   };
 
-  const handleClick = () => {
-    setLiked(!liked);
+  const handleLikeClick = (index) => {
+    const updatedMusicData = [...musicData];
+    console.log(updatedMusicData,"iii before");
+    updatedMusicData[index].liked = !updatedMusicData[index].liked;
+    console.log(updatedMusicData,"iii after");
+    setMusicData(updatedMusicData);
   };
-
   useEffect(() => {
     const interval = setInterval(updateProgress, 1000); // Update every 1 second
     return () => clearInterval(interval); // Cleanup on component unmount
@@ -183,9 +186,9 @@ console.log(musicData[0]?.audioUrl,"4444")
                   }}
                 >
                   <Fab
-                    onClick={handleClick}
+                    onClick={()=>handleLikeClick(index)}
                     aria-label="like"
-                    color={liked ? "secondary" : "default"} 
+                    color={music.liked ? "secondary" : "default"} 
                   >
                     <FavoriteIcon />
                   </Fab>

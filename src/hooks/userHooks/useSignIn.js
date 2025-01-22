@@ -49,7 +49,7 @@ export const useSignIn = () => {
           false
         );
         if (res?.message === "Success") {
-          addDeleteGetLocalStorage(STORAGE.USER_TOKEN,res.data.token,"add","single");
+          addDeleteGetLocalStorage(STORAGE.USER_TOKEN,res.data,"add","single");
           dispatch(
             setSnackbar({
               isOpen: true,
